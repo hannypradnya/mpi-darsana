@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sad Darsana - The Six Paths of Wisdom</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0A192F;
+            --bg-card: rgba(16, 34, 61, 0.85);
+            --gold-primary: #D4AF37;
+            --gold-light: #F3E5AB;
+            --text-light: #F0F4F8;
+            --text-muted: #8892B0;
+            --accent-cyan: #64FFDA;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-light);
+            background-image: radial-gradient(circle at 50% 10%, #172a46 0%, #0a192f 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding-bottom: 80px;
+        }
+
+        /* HEADER & NAVBAR */
+        header {
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--gold-primary);
+            background: rgba(10, 25, 47, 0.9);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            font-family: 'Cinzel', serif;
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--gold-primary);
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+        }
+
+        nav button {
+            background: transparent;
+            border: 1px solid var(--gold-primary);
+            color: var(--gold-light);
+            padding: 8px 16px;
+            margin-left: 8px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        nav button:hover, nav button.active {
+            background: var(--gold-primary);
+            color: var(--bg-primary);
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
+        }
+
+        /* MAIN CONTAINER */
+        main {
+            max-width: 1100px;
+            margin: 30px auto;
+            padding: 0 20px;
+            flex: 1;
+            width: 100%;
+        }
+
+        .page {
+            display: none;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* HERO / HOME PAGE */
+        .hero {
+            text-align: center;
+            padding: 30px 10px;
+        }
+
+        .hero h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 2.8rem;
+            color: var(--gold-primary);
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+
+        .darsana-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 12px;
+            padding: 22px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--gold-primary);
+            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.2);
+        }
+
+        .card h3 {
+            font-family: 'Cinzel', serif;
+            color: var(--gold-light);
+            font-size: 1.4rem;
+            margin-bottom: 8px;
+        }
+
+        .card .founder {
+            font-size: 0.88rem;
+            color: var(--accent-cyan);
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        /* AUREO MASCOT BOX */
+        .aureo-box {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            background: rgba(212, 175, 55, 0.1);
+            border-left: 4px solid var(--gold-primary);
+            padding: 15px 20px;
+            border-radius: 0 8px 8px 0;
+            margin: 20px 0 30px;
+        }
+
+        .aureo-avatar {
+            width: 65px;
+            height: 65px;
+            background: radial-gradient(circle, var(--gold-light), var(--gold-primary));
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2rem;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
+            flex-shrink: 0;
+        }
+
+        .aureo-text h4 {
+            color: var(--gold-light);
+            font-size: 1rem;
+            margin-bottom: 4px;
+        }
+
+        .aureo-text p {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            font-style: italic;
+        }
+
+        /* DETAIL PAGE STYLES */
+        .detail-header {
+            border-bottom: 1px solid var(--gold-primary);
+            padding-bottom: 12px;
+            margin-bottom: 20px;
+        }
+
+        .detail-header h2 {
+            font-family: 'Cinzel', serif;
+            font-size: 2.2rem;
+            color: var(--gold-primary);
+        }
+
+        .content-section {
+            background: var(--bg-card);
+            padding: 25px;
+            border-radius: 12px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            margin-bottom: 25px;
+            line-height: 1.7;
+        }
+
+        .content-section h3 {
+            color: var(--gold-light);
+            margin-bottom: 12px;
+            font-family: 'Cinzel', serif;
+        }
+
+        .content-section ul {
+            margin-left: 20px;
+        }
+
+        /* GAMES CONTAINER */
+        .game-box {
+            background: rgba(10, 25, 47, 0.95);
+            border: 2px dashed var(--gold-primary);
+            border-radius: 12px;
+            padding: 25px;
+            margin-top: 25px;
+            text-align: center;
+        }
+
+        .game-box h4 {
+            color: var(--gold-primary);
+            font-family: 'Cinzel', serif;
+            font-size: 1.25rem;
+            margin-bottom: 12px;
+        }
+
+        select, button.action-btn {
+            background: var(--bg-primary);
+            color: var(--gold-light);
+            border: 1px solid var(--gold-primary);
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            cursor: pointer;
+        }
+
+        button.action-btn {
+            background: var(--gold-primary);
+            color: var(--bg-primary);
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        button.action-btn:hover {
+            box-shadow: 0 0 12px var(--gold-primary);
+        }
+
+        .scratch-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .scratch-card {
+            background: var(--gold-primary);
+            color: var(--bg-primary);
+            height: 90px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            user-select: none;
+            transition: all 0.3s;
+        }
+
+        .scratch-card.revealed {
+            background: var(--bg-card);
+            color: var(--gold-light);
+            border: 1px solid var(--gold-primary);
+        }
+
+        .result-msg {
+            margin-top: 15px;
+            font-weight: bold;
+            color: var(--accent-cyan);
+        }
+
+        /* FLOATING MUSIC PLAYER */
+        .music-player {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(10, 25, 47, 0.95);
+            border: 2px solid var(--gold-primary);
+            border-radius: 50px;
+            padding: 8px 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 5px 20px rgba(212, 175, 55, 0.4);
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .music-btn {
+            background: var(--gold-primary);
+            color: var(--bg-primary);
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .music-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .music-info {
+            font-size: 0.85rem;
+            color: var(--gold-light);
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <div class="logo">SAD DARSANA</div>
+        <nav>
+            <button class="active" onclick="showPage('home')">Beranda</button>
+            <button onclick="showPage('nyaya')">Nyaya</button>
+            <button onclick="showPage('vaisesika')">Vaisesika</button>
+            <button onclick="showPage('sankhya')">Sankhya</button>
+            <button onclick="showPage('yoga')">Yoga</button>
+            <button onclick="showPage('mimamsa')">Mimamsa</button>
+            <button onclick="showPage('vedanta')">Vedanta</button>
+            <button onclick="showPage('evaluasi')">Evaluasi</button>
+        </nav>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main>
+        <!-- HOME PAGE -->
+        <div id="home" class="page active">
+            <div class="hero">
+                <h1>Enam Jalan Kebijaksanaan</h1>
+                <p>Eksplorasi sistematis filsafat Hindu bersama <strong>Aureo</strong>, panduan interaktif bermaterial kristal-emas.</p>
+            </div>
+
+            <div class="aureo-box">
+                <div class="aureo-avatar">👑</div>
+                <div class="aureo-text">
+                    <h4>Aureo the Grand Master</h4>
+                    <p>"Selamat datang! Pilih salah satu aliran Sad Darsana di bawah untuk mempelajari materinya dan mencoba game interaktif di dalamnya!"</p>
+                </div>
+            </div>
+
+            <div class="darsana-grid">
+                <div class="card" onclick="showPage('nyaya')">
+                    <h3>1. Nyaya</h3>
+                    <div class="founder">Pendiri: Maharsi Aksapada Gautama</div>
+                    <p>Filsafat logika, penalaran rasional, dan metode pembuktian kebenaran (Pramana).</p>
+                </div>
+                <div class="card" onclick="showPage('vaisesika')">
+                    <h3>2. Vaisesika</h3>
+                    <div class="founder">Pendiri: Maharsi Kanada</div>
+                    <p>Filsafat atomistik dan unsur-unsur realitas fisik alam semesta (Padartha & Paramanu).</p>
+                </div>
+                <div class="card" onclick="showPage('sankhya')">
+                    <h3>3. Sankhya</h3>
+                    <div class="founder">Pendiri: Maharsi Kapila</div>
+                    <p>Dualisme realitas antara kesadaran murni (Purusa) dan alam materi (Prakrti).</p>
+                </div>
+                <div class="card" onclick="showPage('yoga')">
+                    <h3>4. Yoga</h3>
+                    <div class="founder">Pendiri: Maharsi Patanjali</div>
+                    <p>Praktik meditasi spiritual dan pengendalian diri sistematis (Astanga Yoga).</p>
+                </div>
+                <div class="card" onclick="showPage('mimamsa')">
+                    <h3>5. Mimamsa</h3>
+                    <div class="founder">Pendiri: Maharsi Jaimini</div>
+                    <p>Filsafat pelaksanaan ritual Yajna, hukum Dharma, dan penafsiran kitab suci Veda.</p>
+                </div>
+                <div class="card" onclick="showPage('vedanta')">
+                    <h3>6. Vedanta</h3>
+                    <div class="founder">Pendiri: Maharsi Badarayana</div>
+                    <p>Puncak pengetahuan Veda mengenai hubungan mutlak Atman dan Brahman.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- NYAYA PAGE -->
+        <div id="nyaya" class="page">
+            <div class="detail-header">
+                <h2>Nyaya Darsana</h2>
+                <p style="color: var(--accent-cyan)">Filsafat Logika & Epistemologi</p>
+            </div>
+
+            <div class="aureo-box">
+                <div class="aureo-avatar">🧐</div>
+                <div class="aureo-text">
+                    <h4>Aureo the Logic Master</h4>
+                    <p>"Di ajaran Nyaya, kita belajar 4 cara mendapatkan pengetahuan ilmiah yang benar (Catur Pramana)!"</p>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h3>4 Alat Pengetahuan Benar (Catur Pramana):</h3>
+                <ul>
+                    <li><strong>Pratyaksa Pramana:</strong> Pengamatan langsung melalui pancaindra.</li>
+                    <li><strong>Anumana Pramana:</strong> Pengetahuan melalui inferensi / logika deduktif.</li>
+                    <li><strong>Upamana Pramana:</strong> Pengetahuan melalui perbandingan / analogi.</li>
+                    <li><strong>Sabda Pramana:</strong> Kesaksian dari pakar / Kitab Suci Veda.</li>
+                </ul>
+            </div>
+
+            <div class="game-box">
+                <h4>🎮 GAME 1: RODA SANDI LOGIKA NYAYA</h4>
+                <p style="margin-bottom: 12px;">Kasus: <em>"Kamu melihat asap tebal membubung di atas bukit, lalu kamu menyimpulkan bahwa di sana ada api."</em> Metode mana yang digunakan?</p>
+                <select id="nyaya-select" style="margin-bottom: 10px;">
+                    <option value="">-- Pilih Metode Pramana --</option>
+                    <option value="pratyaksa">Pratyaksa (Pengamatan Langsung)</option>
+                    <option value="anumana">Anumana (Logika Inferensi)</option>
+                    <option value="upamana">Upamana (Analogi)</option>
+                    <option value="sabda">Sabda (Kesaksian)</option>
+                </select><br>
+                <button class="action-btn" onclick="checkNyayaGame()">Uji Logika Aureo</button>
+                <div id="nyaya-result" class="result-msg"></div>
+            </div>
+        </div>
+
+        <!-- VAISESIKA PAGE -->
+        <div id="vaisesika" class="page">
+            <div class="detail-header">
+                <h2>Vaisesika Darsana</h2>
+                <p style="color: var(--accent-cyan)">Filsafat Atom & Realitas Fisik</p>
+            </div>
+
+            <div class="aureo-box">
+                <div class="aureo-avatar">⚛️</div>
+                <div class="aureo-text">
+                    <h4>Aureo the Atomist</h4>
+                    <p>"Semua objek di alam semesta tersusun atas partikel terkecil yang tak terbagi yaitu Paramanu (Atom)."</p>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h3>6 Kategori Realitas (Padartha):</h3>
+                <p>Maharsi Kanada mengelompokkan realitas menjadi 6 kategori: <em>Dravya</em> (Substansi), <em>Guna</em> (Sifat), <em>Karma</em> (Aktivitas), <em>Samanya</em> (Keumuman), <em>Visesa</em> (Keunikan), dan <em>Samavaya</em> (Keterikatan).</p>
+            </div>
+
+            <div class="game-box">
+                <h4>🎮 GAME 2: GOLDEN SCRATCH VAISESIKA</h4>
+                <p>Klik / Gosok kartu emas di bawah untuk mengungkap kategori Padartha!</p>
+                <div class="scratch-grid">
+                    <div class="scratch-card" onclick="revealCard(this, 'Dravya (Substansi)')">GOSOK EMAS</div>
+                    <div class="scratch-card" onclick="revealCard(this, 'Guna (Sifat)')">GOSOK EMAS</div>
+                    <div class="scratch-card" onclick="revealCard(this, 'Karma (Aksi)')">GOSOK EMAS</div>
+                    <div class="scratch-card" onclick="revealCard(this, 'Paramanu (Atom)')">GOSOK EMAS</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SANKHYA PAGE -->
+        <div id="sankhya" class="page">
+            <div class="detail-header">
+                <h2>Sankhya Darsana</h2>
+                <p style="color: var(--accent-cyan)">Dualisme Purusa & Prakrti</p>
+            </div>
+
+            <div class="aureo-box">
+                <div class="aureo-avatar">☯️</div>
+                <div class="aureo-text">
+                    <h4>Aureo the Dualist</h4>
+                    <p>"Semesta adalah tarian antara Purusa (Kesadaran Murni) dan Prakrti (Materi Asal) dengan Tri Guna-nya!"</p>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h3>3 Unsur Alam (Tri Guna):</h3>
+                <ul>
+                    <li><strong>Sattvam:</strong> Sifat tenang, murni, bijaksana, dan penuh cahaya.</li>
+                    <li><strong>Rajas:</strong> Sifat nafsu, ambisi, penuh energi, dan dinamis.</li>
+                    <li><strong>Tamas:</strong> Sifat malas, lambat, gelap, dan pasif.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- YOGA PAGE -->
+        <div id="yoga" class="page">
+            <div class="detail-header">
+                <h2>Yoga Darsana</h2>
+                <p style="color: var(--accent-cyan)">Praktik Meditasi & Astanga Yoga</p>
+            </div>
+
+            <div class="aureo-box">
+                <div class="aureo-avatar">🧘‍♂️</div>
+                <div class="aureo-text">
+                    <h4>Aureo the Yogi</h4>
+                    <p>"Bantu aku menemukan tahapan pertama menuju Samadhi dalam Astanga Yoga!"</p>
+                </div>
+            </div>
+
+            <div class="game-box">
+                <h4>🎮 GAME 3: TAHAPAN ASTANGA YOGA</h4>
+                <p style="margin-bottom: 12px;">Tahapan pertama yang berisi ajaran moral & pengendalian diri (seperti Ahimsa) adalah?</p>
+                <button class="action-btn" onclick="checkYogaGame(false)">A. Asana (Postur Body)</button>
+                <button class="action-btn" onclick="checkYogaGame(true)">B. Yama (Pengendalian Diri)</button>
+                <button class="action-btn" onclick="checkYogaGame(false)">C. Pranayama (Olah Nafas)</button>
+                <div id="yoga-result" class="result-msg"></div>
+            </div>
+        </div>
+
+        <!-- MIMAMSA PAGE -->
+        <div id="mimamsa" class="page">
+            <div class="detail-header">
+                <h2>Mimamsa Darsana</h2>
+                <p style="color: var(--accent-cyan)">Filsafat Ritual & Dharma Veda</p>
+            </div>
+            <div class="content-section">
+                <p>Mimamsa menekankan pentingnya kewajiban **Dharma** melalui pelaksanaan ritual (*Yajna*) secara benar sesuai petunjuk Kitab Suci Veda untuk mencapai keharmonisan semesta.</p>
+            </div>
+        </div>
+
+        <!-- VEDANTA PAGE -->
+        <div id="vedanta" class="page">
+            <div class="detail-header">
+                <h2>Vedanta Darsana</h2>
+                <p style="color: var(--accent-cyan)">Puncak Pengetahuan Veda</p>
+            </div>
+            <div class="content-section">
+                <p>Vedanta mengajarkan puncak filsafat Upanisad: Jiwa individu (**Atman**) pada hakikatnya adalah satu dengan Realitas Tertinggi / Tuhan (**Brahman**).</p>
+            </div>
+        </div>
+
+        <!-- EVALUASI PAGE -->
+        <div id="evaluasi" class="page">
+            <div class="detail-header">
+                <h2>Evaluasi Akhir Sad Darsana</h2>
+                <p style="color: var(--accent-cyan
